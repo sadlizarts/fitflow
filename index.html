@@ -34,7 +34,7 @@
 <helmet></helmet>
 <div id="ff-splash"><img src="./assets/logo-mark.png" alt="FitFlow" style="width:120px;height:auto;filter:drop-shadow(0 8px 30px rgba(232,161,60,0.3));animation:ffsplashpulse 1.4s ease-in-out infinite;"></div>
 <div style="min-height:100dvh; background:var(--void); display:flex; justify-content:center;">
-<div style="width:100%; max-width:430px; min-height:100dvh; background:var(--surface-warm-base); color:var(--text-primary); position:relative; padding-bottom:96px; overflow:hidden;">
+<div style="width:100%; max-width:430px; min-height:100dvh; background:var(--surface-warm-base); color:var(--text-primary); position:relative; padding-bottom:96px; overflow:clip;">
 <div aria-hidden="true" style="position:absolute; top:-180px; left:50%; transform:translateX(-50%); width:520px; height:420px; pointer-events:none; z-index:0; background:radial-gradient(50% 55% at 50% 0%, rgba(232,161,60,0.16), rgba(232,161,60,0.05) 45%, transparent 72%); animation:ffglow 9s ease-in-out infinite;"></div>
 <div style="position:relative; z-index:1;">
 <sc-if value="{{ ready }}" hint-placeholder-val="{{ true }}">
@@ -234,174 +234,33 @@
     </button>
   </sc-if>
 
-  <!-- Weekly recap strip -->
-  <div style="margin-top:18px; display:flex; align-items:stretch; gap:8px;">
-    <sc-for list="{{ recapTiles }}" as="t" hint-placeholder-count="4">
-      <div style="flex:1; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:11px 10px; text-align:center;">
-        <div style="font-family:var(--font-serif); font-size:22px; line-height:1; color:{{ t.color }};">{{ t.value }}</div>
-        <div style="font-family:var(--font-mono); font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); margin-top:5px;">{{ t.label }}</div>
-      </div>
-    </sc-for>
-  </div>
-
-  <!-- Recovery map -->
-  <div style="margin-top:18px; position:relative; overflow:hidden; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:16px; background:radial-gradient(120% 90% at 50% 0%, #10161f 0%, #0c1017 55%, var(--surface-warm-card) 100%);">
-    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; opacity:0.5; background-image:linear-gradient(rgba(90,140,190,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(90,140,190,0.09) 1px, transparent 1px); background-size:22px 22px;"></div>
-    <div aria-hidden="true" style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:280px; height:200px; pointer-events:none; background:radial-gradient(50% 50% at 50% 0%, rgba(77,144,200,0.14), transparent 70%);"></div>
-    <div style="position:relative;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <div>
-          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--cobalt-400);">recovery map</div>
-          <div style="font-size:11px; color:var(--text-faint); margin-top:2px;">kesiapan otot · {{ rmReadyCount }} siap</div>
-        </div>
-        <div style="display:flex; gap:2px; padding:3px; border-radius:999px; border:1px solid var(--border-subtle); background:rgba(8,9,11,0.35);">
-          <button sc-camel-on-click="{{ rmShowFront }}" style="{{ rmFrontStyle }}">Depan</button>
-          <button sc-camel-on-click="{{ rmShowBack }}" style="{{ rmBackStyle }}">Belakang</button>
-        </div>
-      </div>
-      <div style="display:flex; gap:14px; align-items:center;">
-        <svg sc-camel-view-box="0 0 130 230" style="width:118px; height:208px; flex:none;">
-          <defs>
-            <radialGradient id="rmGlow" cx="50%" cy="35%" r="65%">
-              <stop offset="0%" stop-color="rgba(77,144,200,0.12)"></stop><stop offset="100%" stop-color="transparent"></stop>
-            </radialGradient>
-          </defs>
-          <ellipse cx="65" cy="115" rx="58" ry="105" fill="url(#rmGlow)"></ellipse>
-          <sc-if value="{{ rmFront }}" hint-placeholder-val="{{ true }}">
-            <g stroke="rgba(10,14,20,0.55)" stroke-width="0.8" stroke-linejoin="round">
-              <path d="M57 26 Q65 22 73 26 Q75 33 73 39 Q65 43 57 39 Q55 33 57 26 Z" fill="var(--surface-warm-raised)"></path>
-              <path d="M60 41 Q65 44 70 41 L71 48 Q65 51 59 48 Z" fill="var(--surface-warm-raised)"></path>
-              <path d="M46 50 Q37 50 33 58 Q31 64 33 70 Q40 66 48 64 Q50 55 46 50 Z" fill="{{ rm.shouldersFill }}"></path>
-              <path d="M84 50 Q93 50 97 58 Q99 64 97 70 Q90 66 82 64 Q80 55 84 50 Z" fill="{{ rm.shouldersFill }}"></path>
-              <path d="M50 52 H65 V80 Q57 82 49 78 Q46 64 50 52 Z" fill="{{ rm.chestFill }}"></path>
-              <path d="M80 52 H65 V80 Q73 82 81 78 Q84 64 80 52 Z" fill="{{ rm.chestFill }}"></path>
-              <path d="M33 68 Q29 84 31 100 L40 97 Q40 82 42 70 Z" fill="{{ rm.armsFill }}"></path>
-              <path d="M97 68 Q101 84 99 100 L90 97 Q90 82 88 70 Z" fill="{{ rm.armsFill }}"></path>
-              <path d="M52 82 H78 L76 118 Q65 123 54 118 Z" fill="{{ rm.coreFill }}"></path>
-              <path d="M53 122 Q48 152 53 178 L63 176 Q64 148 63 123 Z" fill="{{ rm.quadsFill }}"></path>
-              <path d="M77 122 Q82 152 77 178 L67 176 Q66 148 67 123 Z" fill="{{ rm.quadsFill }}"></path>
-              <path d="M54 182 Q52 202 57 218 L63 217 Q63 198 62 182 Z" fill="{{ rm.calvesFill }}"></path>
-              <path d="M76 182 Q78 202 73 218 L67 217 Q67 198 68 182 Z" fill="{{ rm.calvesFill }}"></path>
-            </g>
-          </sc-if>
-          <sc-if value="{{ rmBack }}" hint-placeholder-val="{{ false }}">
-            <g stroke="rgba(10,14,20,0.55)" stroke-width="0.8" stroke-linejoin="round">
-              <path d="M57 26 Q65 22 73 26 Q75 33 73 39 Q65 43 57 39 Q55 33 57 26 Z" fill="var(--surface-warm-raised)"></path>
-              <path d="M60 41 Q65 44 70 41 L71 48 Q65 51 59 48 Z" fill="var(--surface-warm-raised)"></path>
-              <path d="M46 50 Q37 50 33 58 Q31 64 33 70 Q40 66 48 64 Q50 55 46 50 Z" fill="{{ rm.shouldersFill }}"></path>
-              <path d="M84 50 Q93 50 97 58 Q99 64 97 70 Q90 66 82 64 Q80 55 84 50 Z" fill="{{ rm.shouldersFill }}"></path>
-              <path d="M50 52 H65 V96 Q57 99 49 94 Q46 70 50 52 Z" fill="{{ rm.backFill }}"></path>
-              <path d="M80 52 H65 V96 Q73 99 81 94 Q84 70 80 52 Z" fill="{{ rm.backFill }}"></path>
-              <path d="M33 68 Q29 84 31 100 L40 97 Q40 82 42 70 Z" fill="{{ rm.armsFill }}"></path>
-              <path d="M97 68 Q101 84 99 100 L90 97 Q90 82 88 70 Z" fill="{{ rm.armsFill }}"></path>
-              <path d="M52 98 H78 L76 118 Q65 122 54 118 Z" fill="{{ rm.hamglutesFill }}"></path>
-              <path d="M53 122 Q48 150 53 176 L63 174 Q64 146 63 123 Z" fill="{{ rm.hamglutesFill }}"></path>
-              <path d="M77 122 Q82 150 77 176 L67 174 Q66 146 67 123 Z" fill="{{ rm.hamglutesFill }}"></path>
-              <path d="M54 180 Q52 202 57 218 L63 217 Q63 197 62 180 Z" fill="{{ rm.calvesFill }}"></path>
-              <path d="M76 180 Q78 202 73 218 L67 217 Q67 197 68 180 Z" fill="{{ rm.calvesFill }}"></path>
-            </g>
-          </sc-if>
-        </svg>
-        <div style="flex:1; display:flex; flex-direction:column; gap:5px;">
-          <sc-for list="{{ recoveryRows }}" as="r" hint-placeholder-count="8">
-            <button sc-camel-on-click="{{ r.onTap }}" style="{{ r.rowStyle }}">
-              <span style="width:8px; height:8px; border-radius:99px; background:{{ r.color }}; flex:none; box-shadow:0 0 6px {{ r.glow }};"></span>
-              <span style="flex:1; font-size:12.5px; color:var(--text-secondary); text-align:left;">{{ r.label }}</span>
-              <span style="width:38px; height:4px; border-radius:99px; background:var(--surface-warm-raised); overflow:hidden; flex:none;"><span style="{{ r.barStyle }}"></span></span>
-              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-faint); white-space:nowrap; width:34px; text-align:right;">{{ r.status }}</span>
-            </button>
-          </sc-for>
-        </div>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; font-size:10.5px; color:var(--text-muted);">
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-positive);"></span>Siap</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--warning);"></span>Sebagian</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-negative);"></span>Recovery</span>
-        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-neutral, #8a8f98);"></span>Belum ada data</span>
-      </div>
+  <!-- Today: nutrition + weight at a glance, quick weigh-in (Fase 4) -->
+  <div style="margin-top:16px; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:14px;">
+    <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">hari ini</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <button sc-camel-on-click="{{ goNutrition }}" style="text-align:left; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px; cursor:pointer; color:var(--text-primary);">
+        <span style="display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold-400);">nutrisi</span>
+        <span style="display:block; font-family:var(--font-serif); font-size:22px; line-height:1.1; margin-top:4px;">{{ nutKcalLeft }} <span style="font-family:var(--font-sans); font-size:11px; color:var(--text-muted);">kkal sisa</span></span>
+        <span style="display:block; font-size:11.5px; color:var(--text-secondary); margin-top:3px;">{{ nutProtLine }}</span>
+        <span style="display:block; height:4px; border-radius:99px; background:var(--surface-warm-card); overflow:hidden; margin-top:8px;"><span style="{{ nutProtBar }}"></span></span>
+        <span style="display:block; font-size:11.5px; color:var(--gold-400); font-weight:600; margin-top:8px;">Catat makan ›</span>
+      </button>
+      <button sc-camel-on-click="{{ goBody }}" style="text-align:left; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px; cursor:pointer; color:var(--text-primary);">
+        <span style="display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold-400);">berat</span>
+        <span style="display:block; font-family:var(--font-serif); font-size:22px; line-height:1.1; margin-top:4px;">{{ todayW }} <span style="font-family:var(--font-sans); font-size:11px; color:var(--text-muted);">kg</span></span>
+        <span style="display:block; font-size:11.5px; color:{{ todayWColor }}; margin-top:3px;">{{ todayWDelta }}</span>
+        <span style="display:block; font-size:11.5px; color:var(--text-muted); margin-top:3px;">{{ todayBfLine }}</span>
+        <span style="display:block; font-size:11.5px; color:var(--gold-400); font-weight:600; margin-top:8px;">Progres tubuh ›</span>
+      </button>
     </div>
-  </div>
-
-  <!-- Nutrition widget -->
-  <button sc-camel-on-click="{{ goNutrition }}" style="margin-top:18px; width:100%; text-align:left; position:relative; overflow:hidden; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:16px; cursor:pointer; color:var(--text-primary);">
-    <span aria-hidden="true" style="position:absolute; top:-70px; right:-50px; width:200px; height:170px; pointer-events:none; background:radial-gradient(50% 50% at 70% 25%, rgba(232,161,60,0.16), transparent 70%);"></span>
-    <div style="position:relative;">
-      <div style="display:flex; justify-content:space-between; align-items:baseline;">
-        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-muted);">nutrisi hari ini</div>
-        <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); white-space:nowrap;">{{ nutKcal }} / {{ nutKcalTarget }} kkal</div>
-      </div>
-      <div style="display:flex; gap:16px; align-items:center; margin-top:12px;">
-        <div style="position:relative; width:76px; height:76px; flex:none;">
-        <svg sc-camel-view-box="0 0 80 80" style="width:76px; height:76px; display:block;">
-          <circle cx="40" cy="40" r="33" fill="none" stroke="var(--surface-warm-raised)" stroke-width="7"></circle>
-          <circle cx="40" cy="40" r="33" fill="none" stroke="var(--gold-500)" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ nutRingDash }}" transform="rotate(-90 40 40)"></circle>
-        </svg>
-        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none;">
-          <span style="font-family:var(--font-serif); font-size:17px; line-height:1; color:var(--text-primary);">{{ nutKcalLeft }}</span>
-          <span style="font-family:var(--font-mono); font-size:6.5px; letter-spacing:0.1em; color:var(--text-faint); margin-top:2px;">KKAL SISA</span>
-        </div>
-        </div>
-        <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
-          <sc-for list="{{ nutMacros }}" as="m" hint-placeholder-count="3">
-            <div>
-              <div style="display:flex; justify-content:space-between; font-size:11.5px; margin-bottom:3px;"><span style="color:{{ m.color }}; font-weight:600;">{{ m.label }}</span><span style="font-family:var(--font-mono); font-size:10.5px; color:var(--text-muted);">{{ m.val }} / {{ m.target }} g</span></div>
-              <div style="height:6px; border-radius:99px; background:var(--surface-warm-raised); overflow:hidden;"><span style="{{ m.barStyle }}"></span></div>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
-        <span style="font-size:12px; color:var(--gold-300);">{{ nutInsight }}</span>
-        <span style="color:var(--gold-400); font-size:12.5px; font-weight:600; white-space:nowrap;">Buka ›</span>
-      </div>
-    </div>
-  </button>
-
-  <div style="margin-top:18px;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
-      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-muted);">sesi berikutnya</div>
-      <div style="font-size:11px; color:var(--text-faint);">proyeksi adaptif — dapat berubah</div>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:8px;">
-      <sc-for list="{{ preview }}" as="p" hint-placeholder-count="3">
-        <div style="position:relative; display:flex; align-items:center; gap:13px; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px 15px 12px 14px; overflow:hidden;">
-          <span style="position:absolute; left:0; top:0; bottom:0; width:3px; background:{{ p.accent }};"></span>
-          <span style="{{ p.badgeStyle }}">{{ p.dayShort }}</span>
-          <div style="flex:1; min-width:0;">
-            <div style="font-size:14.5px; font-weight:600; line-height:1.2;">{{ p.title }}</div>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:1px;">{{ p.sub }}</div>
-          </div>
-          <span style="font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-faint); flex:none;">{{ p.day }}</span>
-        </div>
-      </sc-for>
-    </div>
-  </div>
-
-  <!-- Body snapshot -->
-  <div style="margin-top:18px;">
-    <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">body progress</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
-      <sc-for list="{{ bodyTiles }}" as="t" hint-placeholder-count="3">
-        <div style="position:relative; overflow:hidden; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px 12px 13px;">
-          <span aria-hidden="true" style="position:absolute; top:-30px; right:-24px; width:80px; height:70px; background:radial-gradient(50% 50% at 60% 30%, {{ t.glow }}, transparent 70%); pointer-events:none;"></span>
-          <div style="position:relative;">
-            <div style="font-family:var(--font-mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint);">{{ t.label }}</div>
-            <div style="font-family:var(--font-serif); font-size:24px; margin-top:4px; line-height:1;">{{ t.value }}</div>
-            <div style="display:flex; align-items:center; gap:4px; margin-top:5px; font-size:10.5px; color:{{ t.deltaColor }};">
-              <span style="font-family:var(--font-mono); font-size:11px;">{{ t.arrow }}</span><span>{{ t.delta }}</span>
-            </div>
-            <div style="margin-top:8px; height:3px; border-radius:99px; background:var(--surface-warm-raised); overflow:hidden;"><span style="{{ t.barStyle }}"></span></div>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-    <div style="margin-top:10px; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px 14px;">
-    <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><span style="font-size:11.5px; color:var(--text-faint); flex:none;">Tanggal ukur</span><input type="date" value="{{ qDate }}" max="{{ qDateMax }}" sc-camel-on-change="{{ onQDate }}" style="flex:1; min-width:0; height:40px; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); color:var(--text-primary); padding:0 10px; font-size:14px; color-scheme:dark;"></div>
+    <div style="margin-top:10px;">
+<sc-if value="{{ qDateOpen }}" hint-placeholder-val="{{ false }}">    <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;"><span style="font-size:11.5px; color:var(--text-faint); flex:none;">Tanggal ukur</span><input type="date" value="{{ qDate }}" max="{{ qDateMax }}" sc-camel-on-change="{{ onQDate }}" style="flex:1; min-width:0; height:40px; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); color:var(--text-primary); padding:0 10px; font-size:14px; color-scheme:dark;"></div></sc-if>
     <div style="display:flex; gap:8px; align-items:center;">
       <input value="{{ qw }}" sc-camel-on-change="{{ onQw }}" sc-camel-input-mode="decimal" placeholder="Berat (kg)" style="flex:1; min-width:0; height:44px; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); color:var(--text-primary); padding:0 12px; font-size:15px;">
       <input value="{{ qbf }}" sc-camel-on-change="{{ onQbf }}" sc-camel-input-mode="decimal" placeholder="{{ bfPlaceholder }}" style="width:84px; height:44px; background:var(--surface-warm-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); color:var(--text-primary); padding:0 12px; font-size:15px;">
       <button sc-camel-on-click="{{ saveBody }}" style="height:44px; padding:0 16px; border:none; border-radius:999px; background:var(--interactive-warm); color:var(--interactive-warm-ink); font-weight:700; font-size:14px; cursor:pointer;">Simpan</button>
     </div>
+    <button sc-camel-on-click="{{ toggleQDate }}" style="margin-top:6px; background:transparent; border:none; padding:4px 0; color:var(--text-faint); font-size:11.5px; cursor:pointer;">{{ qDateLabel }}</button>
     <sc-if value="{{ qDateIsPast }}" hint-placeholder-val="{{ false }}"><div style="margin-top:6px; font-size:11.5px; color:var(--text-muted);">Tanggal lampau: disimpan jam 07.00; BF hanya dari angka yang kamu isi (tidak diestimasi).</div></sc-if>
     </div>
     <sc-if value="{{ bfEstimateHint }}" hint-placeholder-val="{{ false }}">
@@ -452,6 +311,26 @@
         </button>
       </sc-for>
     </div>
+  <div style="margin-top:18px;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;">
+      <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-muted);">sesi berikutnya</div>
+      <div style="font-size:11px; color:var(--text-faint);">proyeksi adaptif — dapat berubah</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <sc-for list="{{ preview }}" as="p" hint-placeholder-count="3">
+        <div style="position:relative; display:flex; align-items:center; gap:13px; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px 15px 12px 14px; overflow:hidden;">
+          <span style="position:absolute; left:0; top:0; bottom:0; width:3px; background:{{ p.accent }};"></span>
+          <span style="{{ p.badgeStyle }}">{{ p.dayShort }}</span>
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:14.5px; font-weight:600; line-height:1.2;">{{ p.title }}</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:1px;">{{ p.sub }}</div>
+          </div>
+          <span style="font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-faint); flex:none;">{{ p.day }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
   </sc-if>
 
     <sc-if value="{{ cardioFormOpen }}" hint-placeholder-val="{{ false }}">
@@ -496,7 +375,7 @@
     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
       <div>
         <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-400); animation:ffpulse 2.4s infinite; white-space:nowrap;">sesi aktif · {{ asElapsed }}</div>
-        <div style="font-family:var(--font-serif); font-size:26px; margin-top:2px;">{{ asTitle }}</div>
+        <div style="font-family:var(--font-serif); font-size:22px; line-height:1.15; margin-top:2px;">{{ asTitle }}</div>
         <div style="font-size:12px; color:var(--text-faint); margin-top:2px;">Dimulai jam {{ asStarted }}</div>
       </div>
       <div style="display:flex; gap:8px; flex:none;">
@@ -556,6 +435,15 @@
     </sc-if>
 
     <sc-if value="{{ asMainPhase }}" hint-placeholder-val="{{ false }}">
+      <!-- Sticky session bar (Fase 4): timer · progress · finish always reachable -->
+      <div style="position:sticky; top:0; z-index:40; margin:10px -18px 0; padding:10px 18px; background:rgba(16,13,10,0.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border-bottom:1px solid var(--border-subtle); display:flex; align-items:center; gap:12px;">
+        <span style="width:8px; height:8px; border-radius:99px; background:var(--gold-500); flex:none; animation:ffpulse 2.4s infinite;"></span>
+        <span style="flex:1; min-width:0;">
+          <span style="display:block; font-family:var(--font-mono); font-size:12px; color:var(--gold-300); white-space:nowrap;">{{ asElapsed }} · gerakan {{ asDoneCount }}/{{ asTotalCount }} · {{ asSetsDone }} set</span>
+          <span style="display:block; height:4px; border-radius:99px; background:var(--surface-warm-raised); overflow:hidden; margin-top:6px;"><span style="{{ asProgressStyle }}; display:block;"></span></span>
+        </span>
+        <button sc-camel-on-click="{{ openFeedback }}" style="flex:none; height:36px; padding:0 16px; border:none; border-radius:999px; background:var(--interactive-warm); color:var(--interactive-warm-ink); font-weight:700; font-size:13px; cursor:pointer;">Selesai</button>
+      </div>
       <div style="margin-top:14px; margin-bottom:4px;">
         <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-muted);">gerakan {{ asDoneCount }} / {{ asTotalCount }}</span>
@@ -883,6 +771,94 @@
   </div>
 
   <sc-if value="{{ pBody }}" hint-placeholder-val="{{ true }}">
+  <!-- Weekly recap strip -->
+  <div style="margin-top:4px; display:flex; align-items:stretch; gap:8px;">
+    <sc-for list="{{ recapTiles }}" as="t" hint-placeholder-count="4">
+      <div style="flex:1; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:11px 10px; text-align:center;">
+        <div style="font-family:var(--font-serif); font-size:22px; line-height:1; color:{{ t.color }};">{{ t.value }}</div>
+        <div style="font-family:var(--font-mono); font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-faint); margin-top:5px;">{{ t.label }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- Recovery map -->
+  <div style="margin-top:12px; margin-bottom:12px; position:relative; overflow:hidden; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:16px; background:radial-gradient(120% 90% at 50% 0%, #10161f 0%, #0c1017 55%, var(--surface-warm-card) 100%);">
+    <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; opacity:0.5; background-image:linear-gradient(rgba(90,140,190,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(90,140,190,0.09) 1px, transparent 1px); background-size:22px 22px;"></div>
+    <div aria-hidden="true" style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:280px; height:200px; pointer-events:none; background:radial-gradient(50% 50% at 50% 0%, rgba(77,144,200,0.14), transparent 70%);"></div>
+    <div style="position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--cobalt-400);">recovery map</div>
+          <div style="font-size:11px; color:var(--text-faint); margin-top:2px;">kesiapan otot · {{ rmReadyCount }} siap</div>
+        </div>
+        <div style="display:flex; gap:2px; padding:3px; border-radius:999px; border:1px solid var(--border-subtle); background:rgba(8,9,11,0.35);">
+          <button sc-camel-on-click="{{ rmShowFront }}" style="{{ rmFrontStyle }}">Depan</button>
+          <button sc-camel-on-click="{{ rmShowBack }}" style="{{ rmBackStyle }}">Belakang</button>
+        </div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:center;">
+        <svg sc-camel-view-box="0 0 130 230" style="width:118px; height:208px; flex:none;">
+          <defs>
+            <radialGradient id="rmGlow" cx="50%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="rgba(77,144,200,0.12)"></stop><stop offset="100%" stop-color="transparent"></stop>
+            </radialGradient>
+          </defs>
+          <ellipse cx="65" cy="115" rx="58" ry="105" fill="url(#rmGlow)"></ellipse>
+          <sc-if value="{{ rmFront }}" hint-placeholder-val="{{ true }}">
+            <g stroke="rgba(10,14,20,0.55)" stroke-width="0.8" stroke-linejoin="round">
+              <path d="M57 26 Q65 22 73 26 Q75 33 73 39 Q65 43 57 39 Q55 33 57 26 Z" fill="var(--surface-warm-raised)"></path>
+              <path d="M60 41 Q65 44 70 41 L71 48 Q65 51 59 48 Z" fill="var(--surface-warm-raised)"></path>
+              <path d="M46 50 Q37 50 33 58 Q31 64 33 70 Q40 66 48 64 Q50 55 46 50 Z" fill="{{ rm.shouldersFill }}"></path>
+              <path d="M84 50 Q93 50 97 58 Q99 64 97 70 Q90 66 82 64 Q80 55 84 50 Z" fill="{{ rm.shouldersFill }}"></path>
+              <path d="M50 52 H65 V80 Q57 82 49 78 Q46 64 50 52 Z" fill="{{ rm.chestFill }}"></path>
+              <path d="M80 52 H65 V80 Q73 82 81 78 Q84 64 80 52 Z" fill="{{ rm.chestFill }}"></path>
+              <path d="M33 68 Q29 84 31 100 L40 97 Q40 82 42 70 Z" fill="{{ rm.armsFill }}"></path>
+              <path d="M97 68 Q101 84 99 100 L90 97 Q90 82 88 70 Z" fill="{{ rm.armsFill }}"></path>
+              <path d="M52 82 H78 L76 118 Q65 123 54 118 Z" fill="{{ rm.coreFill }}"></path>
+              <path d="M53 122 Q48 152 53 178 L63 176 Q64 148 63 123 Z" fill="{{ rm.quadsFill }}"></path>
+              <path d="M77 122 Q82 152 77 178 L67 176 Q66 148 67 123 Z" fill="{{ rm.quadsFill }}"></path>
+              <path d="M54 182 Q52 202 57 218 L63 217 Q63 198 62 182 Z" fill="{{ rm.calvesFill }}"></path>
+              <path d="M76 182 Q78 202 73 218 L67 217 Q67 198 68 182 Z" fill="{{ rm.calvesFill }}"></path>
+            </g>
+          </sc-if>
+          <sc-if value="{{ rmBack }}" hint-placeholder-val="{{ false }}">
+            <g stroke="rgba(10,14,20,0.55)" stroke-width="0.8" stroke-linejoin="round">
+              <path d="M57 26 Q65 22 73 26 Q75 33 73 39 Q65 43 57 39 Q55 33 57 26 Z" fill="var(--surface-warm-raised)"></path>
+              <path d="M60 41 Q65 44 70 41 L71 48 Q65 51 59 48 Z" fill="var(--surface-warm-raised)"></path>
+              <path d="M46 50 Q37 50 33 58 Q31 64 33 70 Q40 66 48 64 Q50 55 46 50 Z" fill="{{ rm.shouldersFill }}"></path>
+              <path d="M84 50 Q93 50 97 58 Q99 64 97 70 Q90 66 82 64 Q80 55 84 50 Z" fill="{{ rm.shouldersFill }}"></path>
+              <path d="M50 52 H65 V96 Q57 99 49 94 Q46 70 50 52 Z" fill="{{ rm.backFill }}"></path>
+              <path d="M80 52 H65 V96 Q73 99 81 94 Q84 70 80 52 Z" fill="{{ rm.backFill }}"></path>
+              <path d="M33 68 Q29 84 31 100 L40 97 Q40 82 42 70 Z" fill="{{ rm.armsFill }}"></path>
+              <path d="M97 68 Q101 84 99 100 L90 97 Q90 82 88 70 Z" fill="{{ rm.armsFill }}"></path>
+              <path d="M52 98 H78 L76 118 Q65 122 54 118 Z" fill="{{ rm.hamglutesFill }}"></path>
+              <path d="M53 122 Q48 150 53 176 L63 174 Q64 146 63 123 Z" fill="{{ rm.hamglutesFill }}"></path>
+              <path d="M77 122 Q82 150 77 176 L67 174 Q66 146 67 123 Z" fill="{{ rm.hamglutesFill }}"></path>
+              <path d="M54 180 Q52 202 57 218 L63 217 Q63 197 62 180 Z" fill="{{ rm.calvesFill }}"></path>
+              <path d="M76 180 Q78 202 73 218 L67 217 Q67 197 68 180 Z" fill="{{ rm.calvesFill }}"></path>
+            </g>
+          </sc-if>
+        </svg>
+        <div style="flex:1; display:flex; flex-direction:column; gap:5px;">
+          <sc-for list="{{ recoveryRows }}" as="r" hint-placeholder-count="8">
+            <button sc-camel-on-click="{{ r.onTap }}" style="{{ r.rowStyle }}">
+              <span style="width:8px; height:8px; border-radius:99px; background:{{ r.color }}; flex:none; box-shadow:0 0 6px {{ r.glow }};"></span>
+              <span style="flex:1; font-size:12.5px; color:var(--text-secondary); text-align:left;">{{ r.label }}</span>
+              <span style="width:38px; height:4px; border-radius:99px; background:var(--surface-warm-raised); overflow:hidden; flex:none;"><span style="{{ r.barStyle }}"></span></span>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-faint); white-space:nowrap; width:34px; text-align:right;">{{ r.status }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; font-size:10.5px; color:var(--text-muted);">
+        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-positive);"></span>Siap</span>
+        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--warning);"></span>Sebagian</span>
+        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-negative);"></span>Recovery</span>
+        <span style="display:flex; align-items:center; gap:5px;"><span style="width:7px;height:7px;border-radius:99px;background:var(--data-neutral, #8a8f98);"></span>Belum ada data</span>
+      </div>
+    </div>
+  </div>
+
     <div style="margin-top:16px; position:relative; overflow:hidden; background:var(--surface-warm-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:16px;">
       <span aria-hidden="true" style="position:absolute; top:-50px; right:-40px; width:180px; height:130px; pointer-events:none; background:radial-gradient(50% 50% at 65% 25%, rgba(217,155,62,0.14), transparent 70%);"></span>
       <div style="position:relative; display:flex; justify-content:space-between; align-items:baseline;">

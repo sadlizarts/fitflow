@@ -1,6 +1,6 @@
 /* FitFlow service worker — precache all assets, cache-first for assets, network-first for index.html.
    Bump CACHE on every release (build.py does it from the content hash). */
-const CACHE = 'fitflow-v1.2.1-ff8de87e';
+const CACHE = 'fitflow-v1.3.0-994b945d';
 const ASSETS = [
   "./app.js",
   "./engine.js",

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 — 2026-09-30 (Fase 4 bagian 1 · Home & layar sesi)
+
+- **Home dipadatkan**: dari ±13 layar menjadi 1,6 layar (kondisi terlipat) / 2,2 layar (kondisi terbuka), diukur di viewport 412×915.
+  Tetap di Home: streak, pengingat, kondisi hari ini, rekomendasi + Mulai sesi, kartu **Hari ini** (kkal sisa + protein, berat + BF) dan timbang cepat.
+- Timbang cepat: tanggal disembunyikan di balik "Tanggal: hari ini · ubah" (isi riwayat banyak tetap lewat Progress › Body).
+- **Recovery Map + 4 statistik mingguan** pindah ke Progress › Body (paling atas). **Sesi berikutnya** pindah ke tab Latihan.
+- **Layar sesi**: bar lengket di atas saat latihan utama — timer, gerakan n/N, jumlah set, progress, dan tombol **Selesai** selalu terlihat saat scroll. Judul sesi lebih kecil (tidak lagi 3 baris).
+
 ## 1.2.1 — 2026-09-30 (mulai dari nol + input riwayat manual)
 
 - **Tanggal ukur** di form berat/BF (Home) dan lingkar perut (Progress): default hari ini, bisa diisi tanggal lampau, tanggal masa depan ditolak. Tanggal lampau disimpan jam 07.00; berat lampau tanpa BF tidak diestimasi.

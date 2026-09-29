@@ -1,6 +1,6 @@
 /* FitFlow — data + rule-based adaptive engine (offline, no deps) */
 window.FF = (function () {
-  const APP_VERSION = '1.2.1';
+  const APP_VERSION = '1.3.0';
   const DAY = 864e5;
   const uid = () => Math.random().toString(36).slice(2, 10);
   const iso = (daysAgo, h = 7, m = 0) => { const d = new Date(Date.now() - daysAgo * DAY); d.setHours(h, m, 0, 0); return d.toISOString(); };

@@ -681,6 +681,8 @@ class Component extends DCLogic {
       goNutrition: () => set({ tab: 'nutrition' }), nutBack: () => set({ tab: 'home' }),
       nutTodayStr: now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' }),
       nutKcal: kcal, nutKcalTarget: kcalTarget, nutKcalLeft: over ? 0 : kcalLeft,
+      nutProtLine: pSum + ' / ' + pTarget + ' g protein',
+      nutProtBar: 'display:block; height:100%; width:' + Math.min(100, Math.round(pSum / Math.max(1, pTarget) * 100)) + '%; background:' + (pSum >= pTarget * 0.95 ? 'var(--data-positive)' : 'var(--gold-500)') + ';',
       nutRingDash: fillW.toFixed(0) + ' ' + (cWid - fillW).toFixed(0),
       nutHeroDash: fillH.toFixed(0) + ' ' + (cHero - fillH).toFixed(0),
       nutMacros: macros,
@@ -1561,6 +1563,11 @@ class Component extends DCLogic {
       reminderChevron: reminders.length === 1 ? '' : S.remindersOpen ? '▲' : '▼',
       toggleReminders: () => set({ remindersOpen: !S.remindersOpen }),
       preview, bodyTiles,
+      todayW: bodyTiles[0].value, todayWDelta: bodyTiles[0].value === '—' ? 'belum ada data' : bodyTiles[0].arrow + ' ' + bodyTiles[0].delta + ' kg target', todayWColor: bodyTiles[0].deltaColor,
+      todayBfLine: bodyTiles[1].value === '—' ? 'BF belum ada' : 'BF ' + bodyTiles[1].value,
+      goBody: () => set({ tab: 'progress', pTab: 'body' }),
+      qDateOpen: !!(S.qDateOpen || S.qDate), toggleQDate: () => set(S.qDateOpen || S.qDate ? { qDateOpen: false, qDate: '' } : { qDateOpen: true }),
+      qDateLabel: S.qDateOpen || S.qDate ? 'Kembali ke hari ini' : 'Tanggal: hari ini · ubah',
       rm: rmColors, recoveryRows, rmReadyCount: rmReady,
       recapTiles: (() => {
         const wkSess = db.sessions.filter(s => s.status === 'completed' && FF.daysSince(s.date) < 7).length;
